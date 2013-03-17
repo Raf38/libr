@@ -1,4 +1,5 @@
 libr
 ====
 
-C programs without libc
+C programs without libc for safety critical systems
+
