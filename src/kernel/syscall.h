@@ -8,6 +8,7 @@ void  exit      (int status);
 long  nanosleep (const struct timespec* req, struct timespec* rem);
 long  write     (int fd, const void* buffer, long length);
 int   open      (const char* pathname, int flags, int mode);
+int   close     (int file_descriptor);
 //void* mmap      (void* addr, long length, int prot, int flags, int fd, long offset);
 //int   munmap    (void* addr, long length);
 

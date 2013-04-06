@@ -64,6 +64,11 @@ int open(const char* pathname, int flags, int mode)
 	return _syscall3(__NR_open, (long)pathname, (long)flags, (long)mode);
 }
 
+int close(int file_descriptor)
+{
+	return _syscall1(__NR_close, (long)file_descriptor);
+}
+
 //int munmap(void* addr, long length)
 //{
 //	return 0;//_(int)asyscall2(__NR_munmap,(long)addr,length);
