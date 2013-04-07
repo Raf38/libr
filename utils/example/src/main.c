@@ -1,5 +1,6 @@
 #include "stdio.h"
 #include "stdlib.h"
+#include "string.h"
 
 int main(int argc, char** argv, char** env)
 {
@@ -16,5 +17,9 @@ int main(int argc, char** argv, char** env)
 	{	
 		return atoi(argv[1]);
 	}
+	int fd = open("/tmp/abc.txt",0,0);
+	const char buffer[] = "messgae";
+	write(fd,buffer,strlen(buffer));
+	close(fd);
 	return 0;
 }
