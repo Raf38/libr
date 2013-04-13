@@ -18,7 +18,7 @@ libr.a: $(OBJ_C) $(OBJ_S)
 	libr-ar rcs $@ $(OBJ_S) $(OBJ_C)
 
 %.o: %.c
-	libr-gcc -g -c -MMD -I../include -o $@ $<
+	libr-gcc -O2 -g -c -MMD -I../include -o $@ $<
 
 %.o: %.s
 	libr-gcc -g -c -o $@ $<

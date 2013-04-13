@@ -18,7 +18,7 @@ example: $(OBJ_C) $(OBJ_S) libr
 	libr-ld -o $@ $(OBJ_S) $(OBJ_C) ../../../build/libr.a
 
 %.o: %.c
-	libr-gcc -g -c -MMD -I../../../include -o $@ $<
+	libr-gcc -O2 -g -c -MMD -I../../../include -o $@ $<
 
 %.o: %.s
 	libr-gcc -g -c -o $@ $<
