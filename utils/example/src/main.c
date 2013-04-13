@@ -6,7 +6,6 @@
 #include <linux/net.h>
 #include <linux/socket.h>
 
-
 int main(int argc, char** argv, char** env)
 {
 	print("Hello Brave New World\n");
@@ -24,6 +23,18 @@ int main(int argc, char** argv, char** env)
 	}
 	print("Socket\n");
 	int sock = socket(PF_INET,SOCK_STREAM,0);
+
+
+
+	struct sockaddr_in my_addr;
+	my_addr.sin_family = AF_INET;
+	my_addr.sin_port = 0x6666;     // short, network byte order
+	my_addr.sin_addr.s_addr = 0;
+	memset(my_addr.sin_zero, '\0', sizeof my_addr.sin_zero);
+
+	bind(sock, (struct sockaddr *)&my_addr, sizeof my_addr);
+	listen(sock,1);
+	sleep(100);
 	print("Writing file\n");
 	int fd = open("/tmp/abc.txt",O_RDWR|O_CREAT,0644);
 	const char buffer[] = "messgae";
