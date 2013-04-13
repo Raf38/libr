@@ -15,13 +15,13 @@ VPATH=$(dir $(SRC_S))
 VPATH+=$(dir $(SRC_C))
 
 libr.a: $(OBJ_C) $(OBJ_S)
-	ar rcs $@ $(OBJ_S) $(OBJ_C)
+	libr-ar rcs $@ $(OBJ_S) $(OBJ_C)
 
 %.o: %.c
-	gcc -g -c -MMD -I../include -o $@ $<
+	libr-gcc -g -c -MMD -I../include -o $@ $<
 
 %.o: %.s
-	gcc -g -c -o $@ $<
+	libr-gcc -g -c -o $@ $<
 
 clean:
 	rm -rf *.o *.d libr.a

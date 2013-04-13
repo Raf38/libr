@@ -1,4 +1,4 @@
-all: example
+all: sandpit
 
 SRC_DIR=../src/
 OBJ_DIR=./objs/
@@ -14,18 +14,11 @@ DEPS=$(shell find ./ -type f -name '*.d')
 VPATH=$(dir $(SRC_S))
 VPATH+=$(dir $(SRC_C))
 
-example: $(OBJ_C) $(OBJ_S) libr
-	libr-ld -o $@ $(OBJ_S) $(OBJ_C) ../../../build/libr.a
+sandpit: $(OBJ_C) 
+	gcc -o $@ $(OBJ_C)
 
 %.o: %.c
-	libr-gcc -g -c -MMD -I../../../include -o $@ $<
-
-%.o: %.s
-	libr-gcc -g -c -o $@ $<
-
-libr:
-	make -C ../../../build/ --no-print-directory
+	gcc -g -c -MMD -o $@ $<
 
 clean:
-	make clean -C ../../../build/ --no-print-directory
-	rm -rf *.o *.d libr.a
+	rm -rf *.o *.d
