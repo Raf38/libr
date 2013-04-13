@@ -1,0 +1,6 @@
+/build/
+/src/
+/toolchain/
+*.tar.gz
+*.tar.bz2
+/environment.sh
