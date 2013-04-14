@@ -9,6 +9,7 @@ long _syscall1(long type, long a1)
 		"syscall"
 	    	: "=a"(ret)
 		: "a"(type), "D"(a1)
+		: "memory"
 	);
 	return ret;
 }
@@ -21,6 +22,7 @@ long _syscall2(long type, long a1, long a2)
 		"syscall"
 	    	: "=a"(ret)
 		: "a"(type), "D"(a1), "S"(a2)
+		: "memory"
 	);
 	return ret;
 }
@@ -33,10 +35,24 @@ long _syscall3(long type, long a1, long a2, long a3)
 		"syscall"
 	    	: "=a"(ret)
 		: "a"(type), "D"(a1), "S"(a2), "d"(a3)
+		: "memory"
 	);
 	return ret;
 }
-
+/*
+long _syscall4(long type, long a1, long a2, long a3, long a4)
+{
+	long ret;
+	asm
+	(
+		"syscall"
+	    	: "=a"(ret)
+		: "a"(type), "D"(a1), "S"(a2), "d"(a3)
+		: "memory"
+	);
+	return ret;
+}
+*/
 
 //exit is special as it doesnt return
 void exit(int status)
@@ -87,6 +103,21 @@ long bind(long sockfd, struct sockaddr* my_addr, long addr_len)
 long listen(long sockfd, long backlog)
 {
 	return _syscall2(__NR_listen,sockfd,backlog);
+}
+
+long accept(long sockfd, struct sockaddr* addr, long* addrlen)
+{
+	return _syscall3(__NR_accept,sockfd,(long)addr,(long)addrlen);
+}
+(int, void __user *, size_t, unsigned,                                struct sockaddr __user *, int);
+long sendto(long sockfd, const void* msg, size_t len, long flags)
+{
+	return _syscall4(sockfd, (long)msg, len, flags, __NR_send);
+}
+
+long recv(long sockfd, void* buf, long len, long flags)
+{
+	return 0;
 }
 
 //int munmap(void* addr, long length)

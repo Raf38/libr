@@ -1,5 +1,9 @@
 all: libr.a
 
+AR=ar
+CC=gcc
+CC_FLAGS=-O0 -MMD -I../include
+
 SRC_DIR=../src/
 OBJ_DIR=./objs/
 
@@ -15,13 +19,13 @@ VPATH=$(dir $(SRC_S))
 VPATH+=$(dir $(SRC_C))
 
 libr.a: $(OBJ_C) $(OBJ_S)
-	libr-ar rcs $@ $(OBJ_S) $(OBJ_C)
+	$(AR) rcs $@ $(OBJ_S) $(OBJ_C)
 
 %.o: %.c
-	libr-gcc -O2 -g -c -MMD -I../include -o $@ $<
+	$(CC) $(CC_FLAGS) -g -c -o $@ $<
 
 %.o: %.s
-	libr-gcc -g -c -o $@ $<
+	$(CC) -g -c -o $@ $<
 
 clean:
 	rm -rf *.o *.d libr.a

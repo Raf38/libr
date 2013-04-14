@@ -3,8 +3,6 @@
 #include "string.h"
 #include "syscall.h"
 #include "socket.h"
-#include <linux/net.h>
-#include <linux/socket.h>
 
 int main(int argc, char** argv, char** env)
 {
@@ -28,13 +26,17 @@ int main(int argc, char** argv, char** env)
 
 	struct sockaddr_in my_addr;
 	my_addr.sin_family = AF_INET;
-	my_addr.sin_port = 0x6666;     // short, network byte order
+	my_addr.sin_port = htons(1066);     // short, network byte order
 	my_addr.sin_addr.s_addr = 0;
 	memset(my_addr.sin_zero, '\0', sizeof my_addr.sin_zero);
 
 	bind(sock, (struct sockaddr *)&my_addr, sizeof my_addr);
 	listen(sock,1);
-	sleep(100);
+	struct sockaddr_in rem_addr;
+	//long newsock = accept(sock,&rem_addr, sizeof(rem_addr));
+	
+	int m = send(sock, "abc", 3, 0);
+	
 	print("Writing file\n");
 	int fd = open("/tmp/abc.txt",O_RDWR|O_CREAT,0644);
 	const char buffer[] = "messgae";

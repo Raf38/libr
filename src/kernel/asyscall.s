@@ -1,5 +1,7 @@
-.globl asyscall6
+.globl _syscall4
 
-asyscall6:
-	syscall         # syscall(rax,rdi); //exit(rdi)
-
+_syscall4:
+  mov     %rcx,%r10
+	mov     %r8, %rax
+	syscall 
+  retq

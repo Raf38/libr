@@ -1,5 +1,9 @@
 all: example
 
+LD=ld
+CC=gcc
+CC_FLAGS=-O0 -MMD -I../../../include
+
 SRC_DIR=../src/
 OBJ_DIR=./objs/
 
@@ -15,13 +19,13 @@ VPATH=$(dir $(SRC_S))
 VPATH+=$(dir $(SRC_C))
 
 example: $(OBJ_C) $(OBJ_S) libr
-	libr-ld -o $@ $(OBJ_S) $(OBJ_C) ../../../build/libr.a
+	$(LD) -o $@ $(OBJ_S) $(OBJ_C) ../../../build/libr.a
 
 %.o: %.c
-	libr-gcc -O2 -g -c -MMD -I../../../include -o $@ $<
+	$(CC) $(CC_FLAGS) -g -c -o $@ $<
 
 %.o: %.s
-	libr-gcc -g -c -o $@ $<
+	$(CC) $(CC_FLAGS) -g -c -o $@ $<
 
 libr:
 	make -C ../../../build/ --no-print-directory

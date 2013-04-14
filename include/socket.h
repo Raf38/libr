@@ -1,7 +1,12 @@
 #ifndef __LIBR_SOCKET
 #define __LIBR_SOCKET
 
+#include <linux/net.h>
+#include <linux/socket.h>
+
 #define SOCK_STREAM 1
+
+#define htons(x) ((x<<8)|(x>>8))&0xFFFF
 
 // IPv4 AF_INET sockets:
 struct in_addr {
